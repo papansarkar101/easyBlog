@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{{post.title}} - easyBlog
+{% endblock title %}
+
+
+{% block content %}
+
+<h1>
+    {{ post.title }}
+</h1>
+
+<h6>
+    <small>
+        - {{ post.category }} -
+        By:
+        {{ post.author.first_name }}
+        {{ post.author.last_name }}
+        {{ post.post_date }}
+
+        <!-- Authentication -->
+        {% if user.is_authenticated %}
+
+        {% if user.id == post.author.id %}
+        <a href="{% url 'updatepost' post.pk %}">(Edit)</a>
+
+        <a href="{% url 'deletepost' post.pk %}">(delete)</a>
+        {% endif %}
+
+
+        {% endif %}
+    </small>
+</h6>
+<hr>
+<br>
+{{ post.body|safe }}
+
+<br> <br>
+
+<a href="{% url 'home' %}" class="btn btn-secondary"> back </a>
+
+<br> <br>
+<hr>
+<br>
+
+<form action="{% url 'like_post' post.pk %}" method="POST">
+    {% csrf_token %}
+
+    {% if user.is_authenticated %}
+
+    {% if liked %}
+    <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm">
+        Unlike
+    </button>
+    {% else %}
+    <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm">
+        Like
+    </button>
+    {% endif %}
+
+    {% else %}
+
+    <small>
+        <a href="{% url 'login' %}"> Login </a> to like
+    </small>
+
+
+    {% endif %}
+    - {{ total_likes }} likes
+</form>
+
+{% endblock  %}

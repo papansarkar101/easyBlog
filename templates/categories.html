@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+easyBlog
+{% endblock title %}
+
+{% block content %}
+
+{% if category_posts %}
+
+<h2 class="text-center"> {{ ctgs }} </h2> <br>
+
+<ul>
+    {% for post in category_posts %}
+    <li>
+        <a href="{% url 'article' post.pk %}">
+            {{ post.title }}
+        </a>
+        - {{ post.author.first_name }}
+        {{ post.author.last_name }}
+        ({{ post.post_date }})
+        <small>
+
+            <!-- Authentication -->
+            {% if user.is_authenticated %}
+
+            - <a href="{% url 'updatepost' post.pk %}">(Edit)</a>
+
+            <a href="{% url 'deletepost' post.pk %}">(delete)</a>
+
+            {% endif %}
+
+        </small>
+        <br />
+        {{ post.body|safe | slice:":240" }}
+    </li>
+
+    <br> <br>
+    {% endfor %}
+</ul>
+{% else %}
+<p class='text-center'>
+    Sorry this page does not exist..!
+</p>
+{% endif %}
+
+
+{% endblock  %}

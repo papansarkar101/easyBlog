@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit - {{post.title}}
+{% endblock title %}
+
+{% block content %}
+
+<!-- Authentication -->
+{% if user.is_authenticated %}
+
+{% if user.id == post.author.id %}
+
+<h3 class="text-center"> Update - {{post.title}} </h3>
+
+<div class="form-group">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <button class="btn btn-primary form-control">
+            Update
+        </button>
+    </form>
+</div>
+{% else %}
+You are not allowed here! <br>
+{% endif %}
+{% else %}
+
+You are not allowed here! <br>
+Please login first
+
+{% endif %}
+
+
+{% endblock  %}

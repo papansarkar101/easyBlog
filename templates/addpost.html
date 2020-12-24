@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+Write a Post
+{% endblock title %}
+
+{% block content %}
+
+<!-- Authentication -->
+{% if user.is_authenticated %}
+<h3 class="text-center"> Write an Article... </h3>
+
+<div class="form-group">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <button class="btn btn-primary form-control">
+            Post
+        </button>
+    </form>
+</div>
+
+<!-- javascript -->
+<script>
+
+    let name = "{{ user.id }}";
+    document.getElementById("author_name").value = name;
+
+</script>
+
+{% else %}
+
+You are not allowed here! <br>
+Please login first
+
+{% endif %}
+
+
+{% endblock  %}
