@@ -14,6 +14,9 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
