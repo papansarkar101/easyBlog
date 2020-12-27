@@ -1,1 +1,1 @@
-Simple blogging website"# easyBlog" 
+-> easyBlog is a simple blogging website using DJANGO, HTML and CSS.
