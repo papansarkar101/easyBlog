@@ -15,7 +15,7 @@ class Category(models.Model):
         return reverse('home')
 
     class Meta:
-        verbose_name_plural = "Categories"
+        verbose_name_plural = "Category"
 
 
 class Post(models.Model):
