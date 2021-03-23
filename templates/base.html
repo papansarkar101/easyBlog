@@ -41,7 +41,7 @@
     }
   </style>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{% url 'home' %}">easyBlog</a>
+    <a class="navbar-brand" href="{% url 'home' %}"> easyBlog </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -53,8 +53,7 @@
         <!-- Category Menu Code -->
         {% if ctgs_menu %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Categories
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -80,8 +79,24 @@
           <a class="nav-link" href="{% url 'add_category' %}"> Add Category </a>
         </li>
         
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}"> Profile </a>
+        </li> {% endcomment %}
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profile
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'profile' %}">Edit Personal Info</a>
+            {% if user.profiles %}
+              <a class="dropdown-item" href="{% url 'edit_profile' user.profiles.id %}">Edit Profile</a>
+              <a class="dropdown-item" href="{% url 'show_profile_page' user.profiles.id %}">Show Profile</a>
+            {% else %}
+              <a class="dropdown-item" href="{% url 'create_profile' %}">Create Profile</a>
+            {% endif %}
+            
+          </div>
         </li>
 
         </li>

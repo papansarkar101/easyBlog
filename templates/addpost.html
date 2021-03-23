@@ -11,11 +11,11 @@ Write a Post
 <h3 class="text-center"> Write an Article... </h3>
 
 <div class="form-group">
-    <form action="" method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.media}}
         {{form.as_p}}
-        <button class="btn btn-primary form-control">
+        <button class="  btn btn-primary">
             Post
         </button>
     </form>

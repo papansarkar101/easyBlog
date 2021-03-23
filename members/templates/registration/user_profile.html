@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    
+{% endblock title %}
+
+
+{% block content %}
+    
+    <div class="card mb-3 mt-4 text-center" style="max-width: 1200px">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                {% if page_user.profile_pic %}
+                    <img src="{{ page_user.profile_pic.url }}" class="card-img" alt="Author Picture" style="width: 200px; height: 200px">
+                {% else %}
+                    <img src="{% static 'images/default.jpg' %}" alt="default profile pic" style="width: 200px; height: 200px">
+                {% endif %} 
+
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ page_user.user.first_name }} {{ page_user.user.last_name }}</h5>
+                    {% if page_user.website %}
+                        <a href="{{page_user.website}}" target="_blank"> <i class="fas fa-globe mr-2"></i> </a>
+                    {% endif %}
+                    {% if page_user.facebook %}
+                        <a href="{{page_user.facebook}}" target="_blank"> <i class="fab fa-facebook mr-2"></i> </a>
+                    {% endif %}
+                    {% if page_user.twitter %}
+                        <a href="{{page_user.twitter}}" target="_blank"> <i class="fab fa-twitter mr-2"></i> </a>
+                    {% endif %}
+                    {% if page_user.instagram %}
+                        <a href="{{page_user.instagram}}" target="_blank"> <i class="fab fa-instagram mr-2"></i> </a>
+                    {% endif %}
+                    <p class="card-text mt-3">{{ page_user.bio }}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock  %}
