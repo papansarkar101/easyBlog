@@ -4,7 +4,7 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .forms import SignupForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
+from .forms import SignupForm, EditPersonalInfoForm, PasswordChangingForm, ProfilePageForm
 from home.models import Profile
 
 
@@ -19,6 +19,7 @@ class CreateProfilePageView(CreateView):
 
     success_url = reverse_lazy('home')
 
+
 class ShowProfilePageView(DetailView):
     model = Profile
     template_name = 'registration/user_profile.html'
@@ -30,14 +31,14 @@ class ShowProfilePageView(DetailView):
         context['page_user'] = page_user
         return context
 
+
 class EditProfilePageView(generic.UpdateView):
     model = Profile
+    form_class = ProfilePageForm
     template_name = "registration/edit_profile.html"
 
-    fields = ['bio', 'profile_pic', 'website', 'facebook', 'twitter', 'instagram']
     success_url = reverse_lazy('home')
 
-    
 
 class UserSignupView(generic.CreateView):
     form_class = SignupForm
@@ -46,7 +47,7 @@ class UserSignupView(generic.CreateView):
     success_url = reverse_lazy('login')
 
 class UserProfileView(generic.UpdateView):
-    form_class = EditProfileForm
+    form_class = EditPersonalInfoForm
     template_name = 'registration/profile.html'
     success_url = reverse_lazy('home')
 

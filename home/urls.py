@@ -1,5 +1,5 @@
 # from . import views
-from .views import LikeView, HomeView, ArticleView, AddPostView, UpdateArticleView, DeleteArticleView, AddCategoryView, CategoryView
+from .views import LikeView, HomeView, ArticleView, AddPostView, UpdateArticleView, DeleteArticleView, AddCategoryView, CategoryView, AddCommentView
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,7 +13,8 @@ urlpatterns = [
     path('article/edit/<int:pk>/', UpdateArticleView.as_view(), name='updatepost'),
     path('article/<int:pk>/remove', DeleteArticleView.as_view(), name='deletepost'),
     path('category/<str:ctgs>/', CategoryView, name='category'),
-    path('like/<int:pk>', LikeView, name="like_post")
+    path('like/<int:pk>', LikeView, name="like_post"),
+    path('article/<int:pk>/add_comment', AddCommentView.as_view(), name="add_comment"),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
-from .forms import PostForm, EditForm
+from .models import Post, Category, Comment
+from .forms import PostForm, EditForm, CommentForm, CategoryForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
@@ -64,8 +64,6 @@ class AddPostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'addpost.html'
-    # fields = '__all__'
-    # fields = ('title', 'body')
 
     def get_context_data(self, *args, **kwargs):
         ctgs_menu = Category.objects.all()
@@ -73,13 +71,22 @@ class AddPostView(CreateView):
         context["ctgs_menu"] = ctgs_menu
         return context
 
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('home')
+
 
 class AddCategoryView(CreateView):
     model = Category
-    # form_class = PostForm
+    form_class = CategoryForm
     template_name = 'add_category.html'
-    fields = '__all__'
-    # fields = ('title', 'body')
 
     def get_context_data(self, *args, **kwargs):
         ctgs_menu = Category.objects.all()
@@ -88,12 +95,14 @@ class AddCategoryView(CreateView):
         context["ctgs_menu"] = ctgs_menu
         return context
 
+    success_url = reverse_lazy('home')
+
+    
 
 class UpdateArticleView(UpdateView):
     model = Post
     form_class = EditForm
     template_name = 'updatepost.html'
-    # fields = ['title', 'body']
 
     def get_context_data(self, *args, **kwargs):
         ctgs_menu = Category.objects.all()

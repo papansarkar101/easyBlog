@@ -10,7 +10,7 @@ class ProfilePageForm(forms.ModelForm):
 
         widgets = {
                 'bio': forms.Textarea(attrs={'class': 'form-control'}),
-                # 'profile_pic': forms.ImageField(attrs={'class': 'form-control'}),
+                # 'profile_pic': forms.FileField(attrs={'class': 'form-control'}),
                 'website': forms.TextInput(attrs={'class': 'form-control'}),
                 'facebook': forms.TextInput(attrs={'class': 'form-control'}),
                 'twitter': forms.TextInput(attrs={'class': 'form-control'}),
@@ -38,7 +38,7 @@ class SignupForm(UserCreationForm):
         self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 
-class EditProfileForm(UserChangeForm):
+class EditPersonalInfoForm(UserChangeForm):
     email = forms.EmailField(required=False, widget=forms.EmailInput(
         attrs={'class': 'form-control'}))
     first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(
@@ -52,9 +52,8 @@ class EditProfileForm(UserChangeForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
 
-
 class PasswordChangingForm(PasswordChangeForm):
-    old_password = forms.EmailField(max_length=16, required=False, widget=forms.PasswordInput(
+    old_password = forms.CharField(max_length=16, required=False, widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'type': 'password'}))
     new_password1 = forms.CharField(max_length=16, required=True, widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'type': 'password'}))

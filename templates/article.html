@@ -40,9 +40,9 @@
 
     <br>
 
-    <a href="{% url 'home' %}" class="btn btn-secondary"> back </a>
+    <!-- <a href="{% url 'home' %}" class="btn btn-secondary"> back </a> -->
 
-    <br><hr><br>
+    <hr><br>
 
     <form action="{% url 'like_post' post.pk %}" method="POST">
         {% csrf_token %}
@@ -102,5 +102,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Comment Section -->
+    <h3 class="mt-1">Comments:</h3>
+    {% if not post.comments.all %}
+        No Comments Yet... <a href="{% url 'add_comment' post.pk %}"> Add one </a>
+    {% else %}
+        <a href="{% url 'add_comment' post.pk %}"> Add Comment </a> <br> <br>
+        {% for comment in post.comments.all %}
+            <strong> {{ comment.name }} - {{ comment.date_added }} </strong>
+            <br> {{ comment.body }} <hr>
+        {% endfor %}
+    {% endif %}
 
 {% endblock  %}
